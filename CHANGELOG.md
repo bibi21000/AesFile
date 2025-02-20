@@ -9,10 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Initial import
-- Split from CofferFile
-
 ### Changed
 
 ### Removed
 
+
+## [0.0.1] - 2025-02-20
+
+### Added
+
+- Initial import
+- Split from CofferFile
