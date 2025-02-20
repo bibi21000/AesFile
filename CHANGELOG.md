@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - Initial import
+- Split from CofferFile
 
 ### Changed
 
