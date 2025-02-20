@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [0.0.2] - 2025-02-20
+
+### Changes
+
+- Rename fernet_file to aes_file
+- Update doc
+
+
 ## [0.0.1] - 2025-02-20
 
 ### Added

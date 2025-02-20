@@ -46,7 +46,7 @@ class AesFile(pyzstd.ZstdFile):
         A mode of 'r' is equivalent to one of 'rb', and similarly for 'w' and
         'wb', 'a' and 'ab', and 'x' and 'xb'.
 
-        The aes_key argument is the Fernet key used to crypt/decrypt data.
+        The aes_key argument is the AES key used to crypt/decrypt data.
 
         Encryption is done by chunks to reduce memory footprint. The default
         chunk_size is 64KB.
@@ -61,17 +61,17 @@ class AesFile(pyzstd.ZstdFile):
         """
 
         cryptor = kwargs.pop('cryptor', None)
-        self.fernet_file = _AesFile(name, mode, fileobj=fileobj,
+        self.aes_file = _AesFile(name, mode, fileobj=fileobj,
             aes_key=aes_key, chunk_size=chunk_size)
         try:
-            super().__init__(self.fernet_file, zstd_dict=zstd_dict,
+            super().__init__(self.aes_file, zstd_dict=zstd_dict,
                 level_or_option=clean_level_or_option(level_or_option, mode), mode=mode, **kwargs)
         except Exception:
-            self.fernet_file.close()
+            self.aes_file.close()
             raise
 
     def __repr__(self):
-        s = repr(self.fernet_file)
+        s = repr(self.aes_file)
         return '<ZstdAesFile ' + s[1:-1] + ' ' + hex(id(self)) + '>'
 
 
@@ -79,8 +79,8 @@ class AesFile(pyzstd.ZstdFile):
         try:
             super().close()
         finally:
-            if self.fernet_file is not None:
-                self.fernet_file.close()
+            if self.aes_file is not None:
+                self.aes_file.close()
 
 
 def open(filename, mode="rb", aes_key=None,
@@ -88,7 +88,7 @@ def open(filename, mode="rb", aes_key=None,
         chunk_size=CHUNK_SIZE,
         level_or_option=None, zstd_dict=None,
         **cryptor_args):
-    """Open a ZstdFernet file in binary or text mode.
+    """Open a ZstdAes file in binary or text mode.
 
     The filename argument can be an actual filename (a str or bytes object), or
     an existing file object to read from or write to.

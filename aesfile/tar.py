@@ -54,7 +54,7 @@ def open(filename, mode="rb", aes_key=None,
         chunk_size=CHUNK_SIZE,
         level_or_option=None, zstd_dict=None,
         **cryptor_args):
-    """Open a ZstdFernet TarFile in binary mode.
+    """Open a ZstdAES TarFile in binary mode.
 
     The filename argument can be an actual filename (a str or bytes object), or
     an existing file object to read from or write to.

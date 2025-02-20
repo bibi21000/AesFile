@@ -127,7 +127,7 @@
 </span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="n">chunk_size</span><span class="o">=</span><span class="n">CHUNK_SIZE</span><span class="p">,</span>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>        <span class="n">level_or_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>        <span class="o">**</span><span class="n">cryptor_args</span><span class="p">):</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdFernet TarFile in binary mode.</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdAES TarFile in binary mode.</span>
 </span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>
 </span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    The filename argument can be an actual filename (a str or bytes object), or</span>
 </span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">    an existing file object to read from or write to.</span>
@@ -285,7 +285,7 @@
 </span><span id="open-55"><a href="#open-55"><span class="linenos">55</span></a>        <span class="n">chunk_size</span><span class="o">=</span><span class="n">CHUNK_SIZE</span><span class="p">,</span>
 </span><span id="open-56"><a href="#open-56"><span class="linenos">56</span></a>        <span class="n">level_or_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="open-57"><a href="#open-57"><span class="linenos">57</span></a>        <span class="o">**</span><span class="n">cryptor_args</span><span class="p">):</span>
-</span><span id="open-58"><a href="#open-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdFernet TarFile in binary mode.</span>
+</span><span id="open-58"><a href="#open-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdAES TarFile in binary mode.</span>
 </span><span id="open-59"><a href="#open-59"><span class="linenos">59</span></a>
 </span><span id="open-60"><a href="#open-60"><span class="linenos">60</span></a><span class="sd">    The filename argument can be an actual filename (a str or bytes object), or</span>
 </span><span id="open-61"><a href="#open-61"><span class="linenos">61</span></a><span class="sd">    an existing file object to read from or write to.</span>
@@ -301,7 +301,7 @@
 </span></pre></div>
 
 
-            <div class="docstring"><p>Open a ZstdFernet TarFile in binary mode.</p>
+            <div class="docstring"><p>Open a ZstdAES TarFile in binary mode.</p>
 
 <p>The filename argument can be an actual filename (a str or bytes object), or
 an existing file object to read from or write to.</p>

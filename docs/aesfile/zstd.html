@@ -37,7 +37,7 @@
                                 <a class="function" href="#AesFile.__init__">AesFile</a>
                         </li>
                         <li>
-                                <a class="variable" href="#AesFile.fernet_file">fernet_file</a>
+                                <a class="variable" href="#AesFile.aes_file">aes_file</a>
                         </li>
                         <li>
                                 <a class="function" href="#AesFile.close">close</a>
@@ -120,7 +120,7 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">        A mode of &#39;r&#39; is equivalent to one of &#39;rb&#39;, and similarly for &#39;w&#39; and</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="sd">        &#39;wb&#39;, &#39;a&#39; and &#39;ab&#39;, and &#39;x&#39; and &#39;xb&#39;.</span>
 </span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">        The aes_key argument is the Fernet key used to crypt/decrypt data.</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">        The aes_key argument is the AES key used to crypt/decrypt data.</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">        Encryption is done by chunks to reduce memory footprint. The default</span>
 </span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="sd">        chunk_size is 64KB.</span>
@@ -135,17 +135,17 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>
 </span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="n">cryptor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cryptor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>            <span class="n">aes_key</span><span class="o">=</span><span class="n">aes_key</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">)</span>
 </span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>                <span class="n">level_or_option</span><span class="o">=</span><span class="n">clean_level_or_option</span><span class="p">(</span><span class="n">level_or_option</span><span class="p">,</span> <span class="n">mode</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>            <span class="k">raise</span>
 </span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="p">)</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="p">)</span>
 </span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="k">return</span> <span class="s1">&#39;&lt;ZstdAesFile &#39;</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span>
 </span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>
@@ -153,8 +153,8 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>        <span class="k">try</span><span class="p">:</span>
 </span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>        <span class="k">finally</span><span class="p">:</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
 </span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
 </span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;rb&quot;</span><span class="p">,</span> <span class="n">aes_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -162,7 +162,7 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>        <span class="n">chunk_size</span><span class="o">=</span><span class="n">CHUNK_SIZE</span><span class="p">,</span>
 </span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>        <span class="n">level_or_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>        <span class="o">**</span><span class="n">cryptor_args</span><span class="p">):</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdFernet file in binary or text mode.</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdAes file in binary or text mode.</span>
 </span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
 </span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    The filename argument can be an actual filename (a str or bytes object), or</span>
 </span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">    an existing file object to read from or write to.</span>
@@ -218,7 +218,7 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="AesFile-47"><a href="#AesFile-47"><span class="linenos">47</span></a><span class="sd">        A mode of &#39;r&#39; is equivalent to one of &#39;rb&#39;, and similarly for &#39;w&#39; and</span>
 </span><span id="AesFile-48"><a href="#AesFile-48"><span class="linenos">48</span></a><span class="sd">        &#39;wb&#39;, &#39;a&#39; and &#39;ab&#39;, and &#39;x&#39; and &#39;xb&#39;.</span>
 </span><span id="AesFile-49"><a href="#AesFile-49"><span class="linenos">49</span></a>
-</span><span id="AesFile-50"><a href="#AesFile-50"><span class="linenos">50</span></a><span class="sd">        The aes_key argument is the Fernet key used to crypt/decrypt data.</span>
+</span><span id="AesFile-50"><a href="#AesFile-50"><span class="linenos">50</span></a><span class="sd">        The aes_key argument is the AES key used to crypt/decrypt data.</span>
 </span><span id="AesFile-51"><a href="#AesFile-51"><span class="linenos">51</span></a>
 </span><span id="AesFile-52"><a href="#AesFile-52"><span class="linenos">52</span></a><span class="sd">        Encryption is done by chunks to reduce memory footprint. The default</span>
 </span><span id="AesFile-53"><a href="#AesFile-53"><span class="linenos">53</span></a><span class="sd">        chunk_size is 64KB.</span>
@@ -233,17 +233,17 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="AesFile-62"><a href="#AesFile-62"><span class="linenos">62</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="AesFile-63"><a href="#AesFile-63"><span class="linenos">63</span></a>
 </span><span id="AesFile-64"><a href="#AesFile-64"><span class="linenos">64</span></a>        <span class="n">cryptor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cryptor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="AesFile-65"><a href="#AesFile-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
+</span><span id="AesFile-65"><a href="#AesFile-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
 </span><span id="AesFile-66"><a href="#AesFile-66"><span class="linenos">66</span></a>            <span class="n">aes_key</span><span class="o">=</span><span class="n">aes_key</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">)</span>
 </span><span id="AesFile-67"><a href="#AesFile-67"><span class="linenos">67</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="AesFile-68"><a href="#AesFile-68"><span class="linenos">68</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
+</span><span id="AesFile-68"><a href="#AesFile-68"><span class="linenos">68</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
 </span><span id="AesFile-69"><a href="#AesFile-69"><span class="linenos">69</span></a>                <span class="n">level_or_option</span><span class="o">=</span><span class="n">clean_level_or_option</span><span class="p">(</span><span class="n">level_or_option</span><span class="p">,</span> <span class="n">mode</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span><span id="AesFile-70"><a href="#AesFile-70"><span class="linenos">70</span></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-</span><span id="AesFile-71"><a href="#AesFile-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="AesFile-71"><a href="#AesFile-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="AesFile-72"><a href="#AesFile-72"><span class="linenos">72</span></a>            <span class="k">raise</span>
 </span><span id="AesFile-73"><a href="#AesFile-73"><span class="linenos">73</span></a>
 </span><span id="AesFile-74"><a href="#AesFile-74"><span class="linenos">74</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="AesFile-75"><a href="#AesFile-75"><span class="linenos">75</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="p">)</span>
+</span><span id="AesFile-75"><a href="#AesFile-75"><span class="linenos">75</span></a>        <span class="n">s</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="p">)</span>
 </span><span id="AesFile-76"><a href="#AesFile-76"><span class="linenos">76</span></a>        <span class="k">return</span> <span class="s1">&#39;&lt;ZstdAesFile &#39;</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nb">hex</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;&gt;&#39;</span>
 </span><span id="AesFile-77"><a href="#AesFile-77"><span class="linenos">77</span></a>
 </span><span id="AesFile-78"><a href="#AesFile-78"><span class="linenos">78</span></a>
@@ -251,8 +251,8 @@ It uses the multithreaded ZSTD compressor.</p>
 </span><span id="AesFile-80"><a href="#AesFile-80"><span class="linenos">80</span></a>        <span class="k">try</span><span class="p">:</span>
 </span><span id="AesFile-81"><a href="#AesFile-81"><span class="linenos">81</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="AesFile-82"><a href="#AesFile-82"><span class="linenos">82</span></a>        <span class="k">finally</span><span class="p">:</span>
-</span><span id="AesFile-83"><a href="#AesFile-83"><span class="linenos">83</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="AesFile-84"><a href="#AesFile-84"><span class="linenos">84</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="AesFile-83"><a href="#AesFile-83"><span class="linenos">83</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="AesFile-84"><a href="#AesFile-84"><span class="linenos">84</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -302,7 +302,7 @@ supports the Buffer Protocol.</p>
 </span><span id="AesFile.__init__-47"><a href="#AesFile.__init__-47"><span class="linenos">47</span></a><span class="sd">        A mode of &#39;r&#39; is equivalent to one of &#39;rb&#39;, and similarly for &#39;w&#39; and</span>
 </span><span id="AesFile.__init__-48"><a href="#AesFile.__init__-48"><span class="linenos">48</span></a><span class="sd">        &#39;wb&#39;, &#39;a&#39; and &#39;ab&#39;, and &#39;x&#39; and &#39;xb&#39;.</span>
 </span><span id="AesFile.__init__-49"><a href="#AesFile.__init__-49"><span class="linenos">49</span></a>
-</span><span id="AesFile.__init__-50"><a href="#AesFile.__init__-50"><span class="linenos">50</span></a><span class="sd">        The aes_key argument is the Fernet key used to crypt/decrypt data.</span>
+</span><span id="AesFile.__init__-50"><a href="#AesFile.__init__-50"><span class="linenos">50</span></a><span class="sd">        The aes_key argument is the AES key used to crypt/decrypt data.</span>
 </span><span id="AesFile.__init__-51"><a href="#AesFile.__init__-51"><span class="linenos">51</span></a>
 </span><span id="AesFile.__init__-52"><a href="#AesFile.__init__-52"><span class="linenos">52</span></a><span class="sd">        Encryption is done by chunks to reduce memory footprint. The default</span>
 </span><span id="AesFile.__init__-53"><a href="#AesFile.__init__-53"><span class="linenos">53</span></a><span class="sd">        chunk_size is 64KB.</span>
@@ -317,13 +317,13 @@ supports the Buffer Protocol.</p>
 </span><span id="AesFile.__init__-62"><a href="#AesFile.__init__-62"><span class="linenos">62</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="AesFile.__init__-63"><a href="#AesFile.__init__-63"><span class="linenos">63</span></a>
 </span><span id="AesFile.__init__-64"><a href="#AesFile.__init__-64"><span class="linenos">64</span></a>        <span class="n">cryptor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;cryptor&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-</span><span id="AesFile.__init__-65"><a href="#AesFile.__init__-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
+</span><span id="AesFile.__init__-65"><a href="#AesFile.__init__-65"><span class="linenos">65</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="o">=</span> <span class="n">_AesFile</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">fileobj</span><span class="o">=</span><span class="n">fileobj</span><span class="p">,</span>
 </span><span id="AesFile.__init__-66"><a href="#AesFile.__init__-66"><span class="linenos">66</span></a>            <span class="n">aes_key</span><span class="o">=</span><span class="n">aes_key</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">)</span>
 </span><span id="AesFile.__init__-67"><a href="#AesFile.__init__-67"><span class="linenos">67</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="AesFile.__init__-68"><a href="#AesFile.__init__-68"><span class="linenos">68</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
+</span><span id="AesFile.__init__-68"><a href="#AesFile.__init__-68"><span class="linenos">68</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="n">zstd_dict</span><span class="p">,</span>
 </span><span id="AesFile.__init__-69"><a href="#AesFile.__init__-69"><span class="linenos">69</span></a>                <span class="n">level_or_option</span><span class="o">=</span><span class="n">clean_level_or_option</span><span class="p">(</span><span class="n">level_or_option</span><span class="p">,</span> <span class="n">mode</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span><span id="AesFile.__init__-70"><a href="#AesFile.__init__-70"><span class="linenos">70</span></a>        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-</span><span id="AesFile.__init__-71"><a href="#AesFile.__init__-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="AesFile.__init__-71"><a href="#AesFile.__init__-71"><span class="linenos">71</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="AesFile.__init__-72"><a href="#AesFile.__init__-72"><span class="linenos">72</span></a>            <span class="k">raise</span>
 </span></pre></div>
 
@@ -350,7 +350,7 @@ is the mode of fileobj if discernible; otherwise, the default is 'rb'.
 A mode of 'r' is equivalent to one of 'rb', and similarly for 'w' and
 'wb', 'a' and 'ab', and 'x' and 'xb'.</p>
 
-<p>The aes_key argument is the Fernet key used to crypt/decrypt data.</p>
+<p>The aes_key argument is the AES key used to crypt/decrypt data.</p>
 
 <p>Encryption is done by chunks to reduce memory footprint. The default
 chunk_size is 64KB.</p>
@@ -368,13 +368,13 @@ chunk_size is 64KB.</p>
 
 
                             </div>
-                            <div id="AesFile.fernet_file" class="classattr">
+                            <div id="AesFile.aes_file" class="classattr">
                                 <div class="attr variable">
-            <span class="name">fernet_file</span>
+            <span class="name">aes_file</span>
 
         
     </div>
-    <a class="headerlink" href="#AesFile.fernet_file"></a>
+    <a class="headerlink" href="#AesFile.aes_file"></a>
     
     
 
@@ -394,8 +394,8 @@ chunk_size is 64KB.</p>
 </span><span id="AesFile.close-80"><a href="#AesFile.close-80"><span class="linenos">80</span></a>        <span class="k">try</span><span class="p">:</span>
 </span><span id="AesFile.close-81"><a href="#AesFile.close-81"><span class="linenos">81</span></a>            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span><span id="AesFile.close-82"><a href="#AesFile.close-82"><span class="linenos">82</span></a>        <span class="k">finally</span><span class="p">:</span>
-</span><span id="AesFile.close-83"><a href="#AesFile.close-83"><span class="linenos">83</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="AesFile.close-84"><a href="#AesFile.close-84"><span class="linenos">84</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">fernet_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span><span id="AesFile.close-83"><a href="#AesFile.close-83"><span class="linenos">83</span></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="AesFile.close-84"><a href="#AesFile.close-84"><span class="linenos">84</span></a>                <span class="bp">self</span><span class="o">.</span><span class="n">aes_file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -424,7 +424,7 @@ closed, any other operation on it will raise a ValueError.</p>
 </span><span id="open-89"><a href="#open-89"><span class="linenos"> 89</span></a>        <span class="n">chunk_size</span><span class="o">=</span><span class="n">CHUNK_SIZE</span><span class="p">,</span>
 </span><span id="open-90"><a href="#open-90"><span class="linenos"> 90</span></a>        <span class="n">level_or_option</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">zstd_dict</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 </span><span id="open-91"><a href="#open-91"><span class="linenos"> 91</span></a>        <span class="o">**</span><span class="n">cryptor_args</span><span class="p">):</span>
-</span><span id="open-92"><a href="#open-92"><span class="linenos"> 92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdFernet file in binary or text mode.</span>
+</span><span id="open-92"><a href="#open-92"><span class="linenos"> 92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Open a ZstdAes file in binary or text mode.</span>
 </span><span id="open-93"><a href="#open-93"><span class="linenos"> 93</span></a>
 </span><span id="open-94"><a href="#open-94"><span class="linenos"> 94</span></a><span class="sd">    The filename argument can be an actual filename (a str or bytes object), or</span>
 </span><span id="open-95"><a href="#open-95"><span class="linenos"> 95</span></a><span class="sd">    an existing file object to read from or write to.</span>
@@ -441,7 +441,7 @@ closed, any other operation on it will raise a ValueError.</p>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Open a ZstdFernet file in binary or text mode.</p>
+            <div class="docstring"><p>Open a ZstdAes file in binary or text mode.</p>
 
 <p>The filename argument can be an actual filename (a str or bytes object), or
 an existing file object to read from or write to.</p>
