@@ -148,9 +148,8 @@ Decrypt :
             fout.write(data)
 ```
 
-Or
+Or to compress and crypt
 
-Encrypt :
 ```
     import aesfile.zstd
 
@@ -160,11 +159,6 @@ Encrypt :
             if not data:
                 break
             fout.write(data)
-```
-
-Decrypt :
-```
-    import aesfile.zstd
 
     with aesfile.zstd.open(source, mode='rb', aes_key=key) as fin, open(destination, 'wb') as fout :
         while True:

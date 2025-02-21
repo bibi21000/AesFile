@@ -49,7 +49,7 @@ class AesFile(EncryptFile):
         A mode of 'r' is equivalent to one of 'rb', and similarly for 'w' and
         'wb', 'a' and 'ab', and 'x' and 'xb'.
 
-        The aes_key argument is the Fernet key used to crypt/decrypt data.
+        The aes_key argument is the AES key used to crypt/decrypt data.
 
         Encryption is done by chunks to reduce memory footprint. The default
         chunk_size is 64KB.
@@ -67,15 +67,36 @@ class AesCryptor(Cryptor):
 
     @reify
     def _imp_Crypto_Cipher_AES(cls):
-        """Lazy loader for Crypto.Cipher"""
+        """Lazy loader for Crypto.Cipher.AES"""
         import importlib
         return importlib.import_module('Crypto.Cipher.AES')
+
+    @reify
+    def _imp_Crypto_Protocol_KDF(cls):
+        """Lazy loader for Crypto.Protocol.KDF"""
+        import importlib
+        return importlib.import_module('Crypto.Protocol.KDF')
+
+    @reify
+    def _imp_Crypto_Random(cls):
+        """Lazy loader for Crypto.Random"""
+        import importlib
+        return importlib.import_module('Crypto.Random')
 
     def __init__(self, aes_key=None, **kwargs):
         super().__init__(**kwargs)
         if aes_key is None:
             raise ValueError("Invalid aes_key: {!r}".format(aes_key))
         self.aes_key = aes_key
+
+    def derive(self, password, salt=None, key_len=64, N=2 ** 14, r=8, p=1, num_keys=1):
+        """Derive a key from password (experimental)
+        See https://pycryptodome.readthedocs.io/en/latest/src/protocol/kdf.html#scrypt
+        """
+        if salt is None:
+            salt = self._imp_Crypto_Random.get_random_bytes(16)
+        return self._imp_Crypto_Protocol_KDF.scrypt(password, salt,
+            key_len, N=N, r=r, p=p, num_keys=num_keys)
 
     def _decrypt(self, chunk):
         tag = chunk[0:16]
@@ -94,7 +115,7 @@ class AesCryptor(Cryptor):
 def open(filename, mode="rb", aes_key=None,
          encoding=None, errors=None, newline=None,
          chunk_size=CHUNK_SIZE):
-    """Open a Fernet file in binary or text mode.
+    """Open a AES file in binary or text mode.
 
     The filename argument can be an actual filename (a str or bytes object), or
     an existing file object to read from or write to.
