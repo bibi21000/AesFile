@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
- - Add key derivation function
+ - Add key derivation function (experimental)
 
 ### Changed
 
