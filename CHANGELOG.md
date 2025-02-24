@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 
 
+## [0.0.4] - 2025-02-24
+
+### Added
+
+ - Test gihub publishing
+
+
 ## [0.0.3] - 2025-02-23
 
 ### Added
