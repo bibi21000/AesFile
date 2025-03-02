@@ -69,12 +69,14 @@ class AesCryptor(Cryptor):
         import importlib
         return importlib.import_module('Crypto.Cipher.AES')
 
+    @classmethod
     @reify
     def _imp_Crypto_Protocol_KDF(cls):
         """Lazy loader for Crypto.Protocol.KDF"""
         import importlib
         return importlib.import_module('Crypto.Protocol.KDF')
 
+    @classmethod
     @reify
     def _imp_Crypto_Random(cls):
         """Lazy loader for Crypto.Random"""
@@ -87,13 +89,14 @@ class AesCryptor(Cryptor):
             raise ValueError("Invalid aes_key: {!r}".format(aes_key))
         self.aes_key = aes_key
 
-    def derive(self, password, salt=None, key_len=64, N=2 ** 14, r=8, p=1, num_keys=1):
+    @classmethod
+    def derive(self, password, salt=None, key_len=16, N=2 ** 14, r=8, p=1, num_keys=1):
         """Derive a key from password (experimental)
         See https://pycryptodome.readthedocs.io/en/latest/src/protocol/kdf.html#scrypt
         """
         if salt is None:
             salt = self._imp_Crypto_Random.get_random_bytes(16)
-        return self._imp_Crypto_Protocol_KDF.scrypt(password, salt,
+        return salt, self._imp_Crypto_Protocol_KDF.scrypt(password, salt,
             key_len, N=N, r=r, p=p, num_keys=num_keys)
 
     def _decrypt(self, chunk):
