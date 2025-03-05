@@ -1,3 +1,4 @@
+![Static Badge](https://img.shields.io/badge/Documentation-Doc?style=plastic&logo=readthedocs&logoColor=white&link=https%3A%2F%2Fbibi21000.github.io%2FAesFile%2F)
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/bibi21000/AesFile/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/bibi21000/AesFile/tree/main)
 [![codecov](https://codecov.io/gh/bibi21000/AesFile/graph/badge.svg?token=4124GIOJAK)](https://codecov.io/gh/bibi21000/AesFile)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/aesfile)
