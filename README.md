@@ -1,6 +1,7 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/bibi21000/AesFile/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/bibi21000/AesFile/tree/main)
+[![CodeQL](https://github.com/bibi21000/AesFile/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/bibi21000/AesFile/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/bibi21000/AesFile/graph/badge.svg?token=4124GIOJAK)](https://codecov.io/gh/bibi21000/AesFile)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/aesfile)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/aesfile)](https://pypi.org/project/aesfile/)
 
 # AesFile
 
