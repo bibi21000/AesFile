@@ -66,6 +66,8 @@ Binary files :
 
 ## Or compress and crypt them with pyzstd
 
+Look at https://github.com/bibi21000/CofferFile/blob/main/BENCHMARK.md.
+
 ```
     pip install aesfile[zstd]
 ```
